@@ -176,18 +176,24 @@ def command_acerca(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/time \n/hola \n/hello \n/roll \n/gpid \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['creator']) 
 def command_creator(m): 
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
+@bot.message_handler(commands=['gpid'])
+def test_handler(m):
+    cid = m.chat.id
+    fl = m.chat.first_name
+    bot.send_message(cid, "Group ID = ```{}```".format(fl,cid), parse_mode="Markdown")
+
 @bot.message_handler(commands=['id'])
 def test_handler(m):
     cid = m.chat.id
     fl = m.chat.first_name
-    bot.send_message(cid, "*{}*  Your ID = ```{}```".format(fl,cid), parse_mode="Markdown")
+    bot.send_message(cid, "Your ID = ```{}```".format(fl,cid), parse_mode="Markdown")
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
