@@ -12,7 +12,7 @@ import os
 #import re
 #import logging
 
-TOKEN = 'YOUR TOKEN HERE'
+TOKEN = '228878990:AAGVPi5yQxEXBAsj5_OA47zqA54UXocHv_Y'
 bot = telebot.TeleBot(TOKEN) # Creating our bot object.
 bot.skip_pending=True
 #######################################
@@ -175,7 +175,7 @@ def command_acerca(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "Comandos Disponibles: /welcome /hola /hello /kick /uppercut /hadouken /windowsero /ubuntu /stallman /ok /yes /nsa /attack /gentoo /kde /flame /tabla /vicman /deletethat /coding /nelson /spoiler /quetefo /esssta /fede /litrona /vegetta /what /takataka /kill /viernes /roll /time /blogroll /format /fuckyou /arch /tuxamigos /acerca /help") #
+    bot.send_message( cid, "/add trigger/answer \n/del trigger \nSquidward v1") #
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
