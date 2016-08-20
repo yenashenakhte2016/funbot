@@ -10,7 +10,9 @@ import json
 from os.path import exists
 import os
 #import re
-#import logging
+import logging
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 owner = 184018132
 TOKEN = '228878990:AAGVPi5yQxEXBAsj5_OA47zqA54UXocHv_Y'
@@ -183,17 +185,23 @@ def command_creator(m):
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
-@bot.message_handler(commands=['gpid'])
-def test_handler(m):
+@bot.message_handler(commands=['id', 'ids', 'info', 'me'])
+def id(m):      # info menu
     cid = m.chat.id
-    fl = m.chat.first_name
-    bot.send_message(cid, "Group ID = ```{}```".format(fl,cid), parse_mode="Markdown")
-
-@bot.message_handler(commands=['id'])
-def test_handler(m):
-    cid = m.chat.id
-    fl = m.chat.first_name
-    bot.send_message(cid, "Your ID = ```{}```".format(fl,cid), parse_mode="Markdown")
+    title = m.chat.title
+    usr = m.chat.username
+    f = m.chat.first_name
+    l = m.chat.last_name
+    t = m.chat.type
+    d = m.date
+    text = m.text
+    p = m.pinned_message
+    fromm = m.forward_from
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("\xF0\x9F\x98\x8A Squidward bot \xF0\x9F\x98\x8A", url="https://telegram.me/squidward_bot"))
+#info text
+    bot.send_chat_action(cid, "typing")
+    bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
