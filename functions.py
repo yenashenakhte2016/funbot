@@ -181,22 +181,12 @@ def command_ayuda(m):
 @bot.message_handler(commands=['creator']) 
 def command_creator(m): 
     cid = m.chat.id 
-    bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus') 
+    bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
-@bot.message_handler(commands=['ids', 'info', 'me'])
-def id(m):      # info menu
-    cid = m.chat.id
-    title = m.chat.title
-    usr = m.chat.username
-    f = m.chat.first_name
-    l = m.chat.last_name
-    t = m.chat.type
-    d = m.date
-    text = m.text
-    p = m.pinned_message
-    fromm = m.forward_from
-    bot.send_chat_action(cid, "typing")
-    bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown")
+@bot.message_handler(commands=['id']) 
+def command_id(m): 
+    cid = m.chat.id 
+    bot.send_message( cid, 'Your id∶m.chat.id') 
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
