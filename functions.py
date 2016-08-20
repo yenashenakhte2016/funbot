@@ -176,17 +176,17 @@ def command_acerca(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi` \n*Others* \n/time \n/fuckyou \n/hello \n/hola \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n🐙Squidward v1") #
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
     cid = m.chat.id 
-    bot.send_message( cid, 'Hola Dadach :)') 
+    bot.send_message( cid, 'Hola, Dadach :)') 
 
 @bot.message_handler(commands=['hello']) 
 def command_hello(m): 
     cid = m.chat.id 
-    bot.send_message( cid, 'Hello and welcome Dadach :)!') 
+    bot.send_message( cid, 'Hello and welcome Dadach :)') 
 
 @bot.message_handler(commands=['attack']) 
 def command_attack(m): 
