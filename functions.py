@@ -176,7 +176,7 @@ def command_acerca(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/time \n/hola \n/hello \n/*Extras* \n/fuckyou \n/koding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/time \n/hola \n/hello \n/roll \n/*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
