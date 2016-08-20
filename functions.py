@@ -183,6 +183,12 @@ def command_creator(m):
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
+@bot.message_handler(commands=['id'])
+def test_handler(m):
+    cid = m.chat.id
+    fl = m.chat.first_name
+    bot.send_message(cid, "*{}*  Your ID = ```{}```".format(fl,cid), parse_mode="Markdown")
+
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
     cid = m.chat.id 
