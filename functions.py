@@ -183,7 +183,7 @@ def command_creator(m):
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus') 
 
-@bot.message_handler(commands=['id', 'ids', 'info', 'me'])
+@bot.message_handler(commands=['ids', 'info', 'me'])
 def id(m):      # info menu
     cid = m.chat.id
     title = m.chat.title
