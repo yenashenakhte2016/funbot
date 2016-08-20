@@ -181,12 +181,12 @@ def command_ayuda(m):
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
     cid = m.chat.id 
-    bot.send_message( cid, 'Hola Dadach 😀') 
+    bot.send_message( cid, 'Hola Dadach :)') 
 
 @bot.message_handler(commands=['hello']) 
 def command_hello(m): 
     cid = m.chat.id 
-    bot.send_message( cid, 'Hello and welcome Dadach😀!') 
+    bot.send_message( cid, 'Hello and welcome Dadach :)!') 
 
 @bot.message_handler(commands=['attack']) 
 def command_attack(m): 
