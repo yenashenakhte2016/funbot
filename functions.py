@@ -12,6 +12,7 @@ import os
 #import re
 #import logging
 
+owner = 184018132
 TOKEN = '228878990:AAGVPi5yQxEXBAsj5_OA47zqA54UXocHv_Y'
 bot = telebot.TeleBot(TOKEN) # Creating our bot object.
 bot.skip_pending=True
