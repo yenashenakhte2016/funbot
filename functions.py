@@ -154,9 +154,9 @@ def all(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/short url \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
-@bot.message_handler(commands=['creator']) 
+@bot.message_handler(commands=['creator', 'ping']) 
 def command_creator(m): 
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
@@ -240,38 +240,99 @@ def wt(m):
         except IOError:
             print 'not send sticker weather'
 
-@bot.message_handler(commands=['short'])
-def short(m):
+@bot.message_handler(commands=['qr'])
+def qr(m):
+        text = m.text.replace('/qr', '')
+        urllib.urlretrieve("https://api.qrserver.com/v1/create-qr-code/?size=1200x800&data={}&bgcolor=ffff00&".format(text), "qr.png")
+        bot.send_photo(m.chat.id, open('qr.png'))
+
+@bot.message_handler(regexp='^(/kick) (.*)')
+def cap(m):
+    if str(m.from_user.id) == owner:
+        text = m.text.split()[1]
+        bot.kick_chat_member(m.chat.id, text)
+        bot.send_message(m.chat.id, 'Kicked {}'.format(text))
+        return
+    if str(m.from_user.id) not in owner:
+        bot.send_message(m.chat.id, 'Just bot owner')
+        return
+
+@bot.message_handler(commands=['kick'])
+def kick(m):    
+    if m.from_user.id == owner:
+        if m.reply_to_message:
+            bot.kick_chat_member(m.chat.id, m.reply_to_message.from_user.id)
+            bot.send_message(m.chat.id, 'kicked <code>{}</code>'.format(m.reply_to_message.from_user.id), parse_mode='HTML')
+
+@bot.message_handler(commands=['map'])
+def map(m):
         try:
-            text = m.text.split(' ',1)[1]
-            url = urllib.urlopen('http://gs2.ir/api.php?url='+text)
-            bot.send_message(m.chat.id, url.read())
+            text = m.text.split(" ", 1)[1]
+            data = text.encode('utf-8')
+            urllib.urlretrieve('https://maps.googleapis.com/maps/api/staticmap?center={}&zoom=14&size=400x400&maptype=hybrid&key=AIzaSyBmZVQKUXYXYVpY7l0b2fNso4z82H5tMvE'.format(data), 'map.png')
+            bot.send_sticker(m.chat.id, open('map.png'))
+            os.remove('map.png')
         except IndexError:
-            bot.send_message(m.chat.id, 'Error \n فرمت : \n /short [ادرس سایت]')
+            bot.send_message(m.chat.id, '<b>Error</b>',parse_mode='HTML')
 
-@bot.message_handler(regexp='^(/setlink) (.*)')
-def link(m):
-        if m.text.split()[1]:
-            if m.chat.type == "group" or m.chat.type == "supergroup":
-                text = m.text.split()[1]
-                rediss.set('{}'.format(m.chat.id), '{}'.format(text))
-                get = rediss.get('{}'.format(m.chat.id))
-                markup = types.InlineKeyboardMarkup()
-                markup.add(types.InlineKeyboardButton('Group link',url= '{}'.format(get)))
-                bot.send_message(m.chat.id, '<b>Link :</b> {}'.format(get), parse_mode='HTML', reply_markup=markup)
-            if m.chat.type == "private":
-                bot.send_message(m.chat.id, 'Just group')
-                return
+@bot.message_handler(commands=['arz'])
+def arz(m):
+        url = urllib.urlopen('http://exchange.nalbandan.com/api.php?action=json')
+        data = url.read()
+        js = json.loads(data)
+        dollar = js['dollar']['value']
+        euro = js['euro']['value']
+        gold_per_geram = js['gold_per_geram']['value']
+        pond = js['pond']['value']
+        text = '\xD8\xAF\xD9\x84\xD8\xA7\xD8\xB1 : '+dollar+'\n\xDB\x8C\xD9\x88\xD8\xB1\xD9\x88 : '+euro+'\n\xD8\xB7\xD9\x84\xD8\xA7\xDB\x8C\x20\x31\x38\x20\xD8\xB9\xDB\x8C\xD8\xA7\xD8\xB1 : '+gold_per_geram+'\n\xD9\xBE\xD9\x88\xD9\x86\xD8\xAF : '+pond
+        bot.send_message(m.chat.id, text)
 
-@bot.message_handler(commands=['link'])
-def linkget(m):
-        if m.chat.type == "group" or m.chat.type == "supergroup":
-            get = rediss.get('{}'.format(m.chat.id))
-            markup = types.InlineKeyboardMarkup()
-            markup.add(types.InlineKeyboardButton('Group link',url= '{}'.format(get)))
-            bot.send_message(m.chat.id, '<b>Link :</b> {}'.format(get), parse_mode='HTML', reply_markup=markup)
-        if m.chat.type == "private":
-            bot.send_message(m.chat.id, 'Just group')
+@bot.message_handler(commands=['spotify'])
+def m(m):
+        try:
+            url = urllib.urlopen("https://api.spotify.com/v1/search?limit=1&type=track&q={}".format(m.text.replace('/spotify','')))
+            data = url.read()
+            js = json.loads(data)
+            files = js['tracks']['items'][0]['preview_url']
+            name = js['tracks']['items'][0]['name']
+            pic = js['tracks']['items'][0]['album']['images'][1]['url']
+            art = js['tracks']['items'][0]['artists'][0]['name']
+            bot.send_message(m.chat.id, '<b>Name</b> : {}\n<b>Artist : </b>{}'.format(name,art),parse_mode='HTML')
+            bot.send_chat_action(m.chat.id, 'record_audio')
+            urllib.urlretrieve(files,'spotify.mp3')
+            urllib.urlretrieve(pic,'spotify.png')
+            bot.send_audio(m.chat.id, open('spotify.mp3'), title=name)
+            bot.send_sticker(m.chat.id, open('spotify.png'))
+            hash = 'spotify'
+            now = rediss.get(hash)
+            new = int(now) + 1
+            rediss.set(hash,new)
+            os.remove('spotify.mp3')
+            os.remove('spotify.png')
+            print ' send /spotify'
+        except KeyError:
+            bot.send_message(m.chat.id, 'Error')
+        except IndexError:
+            bot.send_message(m.chat.id, 'Error')
+        except IOError:
+            bot.send_message(m.chat.id, 'Error')
+
+@bot.message_handler(commands=['whois'])
+def whois(m):
+        try:
+            cid = m.chat.id
+            text = m.text
+            input = text.split()[1]
+            req = urllib2.Request("http://www.whoisxmlapi.com/whoisserver/WhoisService?domainName={}&outputFormat=JSON".format(input))
+            opener = urllib2.build_opener()
+            f = opener.open(req)
+            parsed_json = json.loads(f.read())
+            output = parsed_json['WhoisRecord']['rawText']
+            bot.send_message(cid,output)
+        except KeyError:
+            bot.send_message(m.chat.id, 'Error')
+        except IndexError:
+            bot.send_message(m.chat.id, '/whois [Domain Name]')
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
