@@ -151,7 +151,7 @@ def all(m):
 # Search function used as easter eggs
 #find_python = re.compile(r"(?i)\bPYTHON\b").search
 
-@bot.message_handler(commands=['help']) 
+@bot.message_handler(commands=['hhelp']) 
 def command_ayuda(m): 
     cid = m.chat.id
     bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
@@ -160,6 +160,37 @@ def command_ayuda(m):
 def command_creator(m): 
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
+
+@bot.message_handler(commands=['help'])
+def welcome(m):
+    banlist = rediss.sismember('banlist_arrow', '{}'.format(m.from_user.id))
+    if str(banlist) == 'False':
+        print 'Send /help'
+        rediss.sadd('member', '{}'.format(m.from_user.id))
+        bot.send_chat_action(m.chat.id, 'typing')
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton('Next \xE2\x96\xB6\xEF\xB8\x8F', callback_data='next'))
+        markup.add(types.InlineKeyboardButton('Inline \xF0\x9F\x93\x9D', switch_inline_query=''))
+        bot.send_message(m.chat.id,
+        """
+<i>Hi Wellcome 
+I am squidward the tentacle</i>
+These are what i can do
+<code>
+/help 《show this text》
+/format [Text]  《*bold* _italic_ `code`》
+/time 《local time》 
+/qr [text] 《make qr codes》
+/id 《Your id & info》
+/whois [domain name] 《domain informations》
+/map [City] 《Map screen》
+/spotify [Name Track] 《track info》
+/weather [City] 《shows city weather》
+/arz 《Arz And Gold price》
+
+</code>
+\xD8\xAE\xD9\x88\xD8\xB4\x20\xD8\xA7\xD9\x85\xD8\xAF\xDB\x8C\xD8\xAF
+        """, parse_mode='HTML', reply_markup=markup)
 
 @bot.message_handler(commands=['id', 'ids', 'info', 'me'])
 def id(m):      # info menu
