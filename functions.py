@@ -172,8 +172,8 @@ def welcome(m):
 <b>Wellcome 
 I am squidward the tentacle
 These are what i can do</b>
-<i>
-/help 《show this text》
+
+<i>/help 《show this text》
 /format [Text]  《*bold* _italic_ `code`》
 /time 《local time》 
 /qr [text] 《make qr codes》
@@ -185,21 +185,20 @@ These are what i can do</b>
 /arz 《Arz And Gold price》
 /roll 《roll a dice》
 /hello 《say hello》
-/hola 《say hola》
-</i>
-<code>Triggers settings</code> 〔Groups only〕
-<i>
-/add trigger / reaponse 《add a trigger》
+/hola 《say hola》</i>
+
+<code>Triggers settings</code> *Groups only
+
+<i>/add trigger / reaponse 《add a trigger》
 /del trigger 《delete a trigger》
 /size 《count of the triggers》
-/all 《list of triggers》
-</i>
+/all 《list of triggers》</i>
+
 <b>Extras</b>
-</i>
-/fuckyou 
+
+<i>/fuckyou 
 /coding
-/attack
-</i>
+/attack</i>
 
 \xD8\xAE\xD9\x88\xD8\xB4\x20\xD8\xA7\xD9\x85\xD8\xAF\xDB\x8C\xD8\xAF
         """, parse_mode='HTML', reply_markup=markup)
