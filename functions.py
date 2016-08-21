@@ -161,6 +161,11 @@ def command_creator(m):
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
+@bot.message_handler(commands=['start']) 
+def command_start(m): 
+    cid = m.chat.id 
+    bot.send_message( cid, '🐙Hello \n🐙Wellcome to squidwardBot V.1 \n🐙A fun bot based on python \n🐙Developed by @Electrovirus \n\n🐙Use /help to see bot commands')
+
 @bot.message_handler(commands=['help'])
 def welcome(m):
         bot.send_chat_action(m.chat.id, 'typing')
