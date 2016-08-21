@@ -163,10 +163,6 @@ def command_creator(m):
 
 @bot.message_handler(commands=['help'])
 def welcome(m):
-    banlist = rediss.sismember('banlist_arrow', '{}'.format(m.from_user.id))
-    if str(banlist) == 'False':
-        print 'Send /help'
-        rediss.sadd('member', '{}'.format(m.from_user.id))
         bot.send_chat_action(m.chat.id, 'typing')
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton('Next \xE2\x96\xB6\xEF\xB8\x8F', callback_data='next'))
@@ -187,6 +183,14 @@ These are what i can do
 /spotify [Name Track] 《track info》
 /weather [City] 《shows city weather》
 /arz 《Arz And Gold price》
+/roll 《roll a dice》
+/hello 《say hello》
+/hola 《say hola》
+
+<b>Extras</b>
+/fuckyou 
+/coding
+/attack
 
 </code>
 \xD8\xAE\xD9\x88\xD8\xB4\x20\xD8\xA7\xD9\x85\xD8\xAF\xDB\x8C\xD8\xAF
