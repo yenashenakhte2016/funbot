@@ -304,9 +304,6 @@ def m(m):
             bot.send_audio(m.chat.id, open('spotify.mp3'), title=name)
             bot.send_sticker(m.chat.id, open('spotify.png'))
             hash = 'spotify'
-            now = rediss.get(hash)
-            new = int(now) + 1
-            rediss.set(hash,new)
             os.remove('spotify.mp3')
             os.remove('spotify.png')
             print ' send /spotify'
