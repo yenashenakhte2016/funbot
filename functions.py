@@ -177,8 +177,6 @@ def m(m):
                     f.write(dw)
                 bot.send_photo(m.chat.id, open('sticker.png'))
                 os.remove('sticker.png')
-        except AttributeError:
-            bot.send_message(m.chat.id, 'Just Reply Sticker message')
 
 @bot.message_handler(commands=['tosticker'])
 def m(m):
@@ -190,11 +188,7 @@ def m(m):
                 with open('sticker.png','wb') as f:
                     f.write(dw)
                 bot.send_sticker(m.chat.id, open('sticker.png'))
-        except AttributeError:
-            bot.send_message(m.chat.id, 'Just Reply Photo message')
-        except IndexError:
-            bot.send_message(m.chat.id, 'Size Error')
-
+      
 @bot.message_handler(commands=['id', 'ids', 'info', 'me'])
 def id(m):      # info menu
     cid = m.chat.id
