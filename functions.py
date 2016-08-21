@@ -169,10 +169,11 @@ def welcome(m):
         markup.add(types.InlineKeyboardButton('Inline \xF0\x9F\x93\x9D', switch_inline_query=''))
         bot.send_message(m.chat.id,
         """
-<i>Hi Wellcome 
-I am squidward the tentacle</i>
-These are what i can do
-<code>
+<code>Wellcome 
+I am squidward the tentacle
+These are what i can do</code>
+
+<i>
 /help 《show this text》
 /format [Text]  《*bold* _italic_ `code`》
 /time 《local time》 
@@ -186,13 +187,13 @@ These are what i can do
 /roll 《roll a dice》
 /hello 《say hello》
 /hola 《say hola》
-
+</i>
 <b>Extras</b>
 /fuckyou 
 /coding
 /attack
 
-</code>
+
 \xD8\xAE\xD9\x88\xD8\xB4\x20\xD8\xA7\xD9\x85\xD8\xAF\xDB\x8C\xD8\xAF
         """, parse_mode='HTML', reply_markup=markup)
 
