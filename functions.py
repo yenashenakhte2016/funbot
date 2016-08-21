@@ -154,8 +154,6 @@ def all(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id
- markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Squidward bot", url="https://telegram.me/squidward_bot"))
     bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/sticker text \n/tosticker (reply to photo) \n/tophoto (reply to sticker) \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['creator', 'ping']) 
