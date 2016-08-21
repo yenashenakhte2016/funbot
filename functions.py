@@ -156,12 +156,46 @@ def command_ayuda(m):
     cid = m.chat.id
  markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Squidward bot", url="https://telegram.me/squidward_bot"))
-    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/sticker text \n/tosticker (reply to photo) \n/tophoto (reply to sticker) \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['creator', 'ping']) 
 def command_creator(m): 
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
+
+
+@bot.message_handler(commands=['sticker'])
+def sticker(m):
+        urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
+        bot.send_sticker(m.chat.id, open('sticker.png'))
+
+@bot.message_handler(commands=['tophoto'])
+def m(m):
+            if m.reply_to_message.sticker:
+                fileid = m.reply_to_message.sticker.file_id
+                get = bot.get_file(fileid)
+                dw = bot.download_file(get.file_path)
+                with open('sticker.png','wb') as f:
+                    f.write(dw)
+                bot.send_photo(m.chat.id, open('sticker.png'))
+                os.remove('sticker.png')
+        except AttributeError:
+            bot.send_message(m.chat.id, 'Just Reply Sticker message')
+
+@bot.message_handler(commands=['tosticker'])
+def m(m):
+        try:
+            if m.reply_to_message.photo:
+                fileid = m.reply_to_message.photo[2].file_id
+                get = bot.get_file(fileid)
+                dw = bot.download_file(get.file_path)
+                with open('sticker.png','wb') as f:
+                    f.write(dw)
+                bot.send_sticker(m.chat.id, open('sticker.png'))
+        except AttributeError:
+            bot.send_message(m.chat.id, 'Just Reply Photo message')
+        except IndexError:
+            bot.send_message(m.chat.id, 'Size Error')
 
 @bot.message_handler(commands=['id', 'ids', 'info', 'me'])
 def id(m):      # info menu
