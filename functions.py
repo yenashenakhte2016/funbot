@@ -154,7 +154,7 @@ def all(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id
-    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/sticker text \n/tosticker (reply to photo) \n/tophoto (reply to sticker) \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['creator', 'ping']) 
 def command_creator(m): 
@@ -385,10 +385,5 @@ def response(m):
             for t in trg.keys():
                 if t.lower() in m.text.lower():
                     bot.reply_to(m, trg[t])
-
-@bot.message_handler(commands=['sticker'])
-def sticker(m):
-        urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
-        bot.send_sticker(m.chat.id, open('sticker.png'))
 
 print('Functions loaded')
