@@ -391,26 +391,4 @@ def sticker(m):
         urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
         bot.send_sticker(m.chat.id, open('sticker.png'))
 
-@bot.message_handler(commands=['tophoto'])
-def m(m):
-            if m.reply_to_message.sticker:
-                fileid = m.reply_to_message.sticker.file_id
-                get = bot.get_file(fileid)
-                dw = bot.download_file(get.file_path)
-                with open('sticker.png','wb') as f:
-                    f.write(dw)
-                bot.send_photo(m.chat.id, open('sticker.png'))
-                os.remove('sticker.png')
-
-@bot.message_handler(commands=['tosticker'])
-def m(m):
-        try:
-            if m.reply_to_message.photo:
-                fileid = m.reply_to_message.photo[2].file_id
-                get = bot.get_file(fileid)
-                dw = bot.download_file(get.file_path)
-                with open('sticker.png','wb') as f:
-                    f.write(dw)
-                bot.send_sticker(m.chat.id, open('sticker.png'))
-
 print('Functions loaded')
