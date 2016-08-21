@@ -377,6 +377,15 @@ def command_fuckyou(m):
     cid = m.chat.id 
     bot.send_document( cid, open( './imagenes/fuckyou.mp4', 'rb')) 
 
+@bot.message_handler(func=lambda m: True)
+def response(m):
+    if(m.chat.type in ['group', 'supergroup']):
+        trg = get_triggers(m.chat.id)
+        if(trg):
+            for t in trg.keys():
+                if t.lower() in m.text.lower():
+                    bot.reply_to(m, trg[t])
+
 @bot.message_handler(commands=['sticker'])
 def sticker(m):
         urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
@@ -403,14 +412,5 @@ def m(m):
                 with open('sticker.png','wb') as f:
                     f.write(dw)
                 bot.send_sticker(m.chat.id, open('sticker.png'))
-
-@bot.message_handler(func=lambda m: True)
-def response(m):
-    if(m.chat.type in ['group', 'supergroup']):
-        trg = get_triggers(m.chat.id)
-        if(trg):
-            for t in trg.keys():
-                if t.lower() in m.text.lower():
-                    bot.reply_to(m, trg[t])
 
 print('Functions loaded')
