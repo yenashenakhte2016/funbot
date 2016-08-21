@@ -179,33 +179,6 @@ def id(m):      # info menu
     bot.send_chat_action(cid, "typing")
     bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
 
-@bot.message_handler(commands=['sticker'])
-def sticker(m):
-        urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
-        bot.send_sticker(m.chat.id, open('sticker.png'))
-
-@bot.message_handler(commands=['tophoto'])
-def m(m):
-            if m.reply_to_message.sticker:
-                fileid = m.reply_to_message.sticker.file_id
-                get = bot.get_file(fileid)
-                dw = bot.download_file(get.file_path)
-                with open('sticker.png','wb') as f:
-                    f.write(dw)
-                bot.send_photo(m.chat.id, open('sticker.png'))
-                os.remove('sticker.png')
-
-@bot.message_handler(commands=['tosticker'])
-def m(m):
-        try:
-            if m.reply_to_message.photo:
-                fileid = m.reply_to_message.photo[2].file_id
-                get = bot.get_file(fileid)
-                dw = bot.download_file(get.file_path)
-                with open('sticker.png','wb') as f:
-                    f.write(dw)
-                bot.send_sticker(m.chat.id, open('sticker.png'))
-
 @bot.message_handler(commands=['weather'])
 def wt(m):
         try:
@@ -403,6 +376,33 @@ def command_format(m):
 def command_fuckyou(m): 
     cid = m.chat.id 
     bot.send_document( cid, open( './imagenes/fuckyou.mp4', 'rb')) 
+
+@bot.message_handler(commands=['sticker'])
+def sticker(m):
+        urllib.urlretrieve("https://assets.imgix.net/examples/blueberries.jpg?blur=500&fit=crop&w=1200&h=500&trimcolor=ffffff&txt={}&txtsize=150&txtalign=middle%2C%20center&txtline=3".format(m.text.replace('/sticker', '')), "sticker.png")
+        bot.send_sticker(m.chat.id, open('sticker.png'))
+
+@bot.message_handler(commands=['tophoto'])
+def m(m):
+            if m.reply_to_message.sticker:
+                fileid = m.reply_to_message.sticker.file_id
+                get = bot.get_file(fileid)
+                dw = bot.download_file(get.file_path)
+                with open('sticker.png','wb') as f:
+                    f.write(dw)
+                bot.send_photo(m.chat.id, open('sticker.png'))
+                os.remove('sticker.png')
+
+@bot.message_handler(commands=['tosticker'])
+def m(m):
+        try:
+            if m.reply_to_message.photo:
+                fileid = m.reply_to_message.photo[2].file_id
+                get = bot.get_file(fileid)
+                dw = bot.download_file(get.file_path)
+                with open('sticker.png','wb') as f:
+                    f.write(dw)
+                bot.send_sticker(m.chat.id, open('sticker.png'))
 
 @bot.message_handler(func=lambda m: True)
 def response(m):
