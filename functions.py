@@ -176,11 +176,13 @@ These are what i can do</b>
 <i>/help 《show this text》
 /format [Text]  《*bold* _italic_ `code`》
 /time 《local time》 
+/dog [Text] 《dogify》
 /qr [text] 《make qr codes》
 /id 《Your id & info》
 /whois [domain name] 《domain informations》
 /map [City] 《Map screen》
 /spotify [Name Track] 《track info》
+/soundcloud [sound cloud url] 《Download mp3》
 /weather [City] 《shows city weather》
 /webshot [URL] 《Take a photo of url》
 /arz 《Arz And Gold price》
@@ -283,6 +285,27 @@ def wt(m):
         except IOError:
             print 'not send sticker weather'
 
+@bot.message_handler(commands=['soundcloud'])
+def s(m):
+        try:
+            text = m.text.split(' ',1)[1]
+            url = urllib.urlopen('http://api.soundcloud.com/resolve?url={}&client_id=68e2dd5ffc581ee86f6e17f21637455a'.format(text))
+            d = url.read()
+            data = json.loads(d)
+            tag_list = data['tag_list']
+            title = data['title']
+            stream_url = data['stream_url']
+            urllib.urlretrieve('{}?client_id=68e2dd5ffc581ee86f6e17f21637455a'.format(stream_url),'soundcloud.mp3')
+            bot.send_chat_action(m.chat.id, 'record_audio')
+            bot.send_message(m.chat.id, 'Title : '+title+'\n\nTag list : '+tag_list)
+            bot.send_audio(m.chat.id, open('soundcloud.mp3'), title=title)
+
+@bot.message_handler(commands=['dog'])
+def d(m):
+        text = m.text.replace('/dog', '')
+        urllib.urlretrieve("http://dogr.io/{}.png?split=false&s.png".format(text), "s.png")
+        bot.send_photo(m.chat.id, open('s.png'))
+
 @bot.message_handler(regexp='^(/webshot) (.*)')
 def web(m):
         urllib.urlretrieve("http://api.screenshotmachine.com/?key=b645b8&size=X&url={}".format(m.text.replace('/webshot', '')), "web.jpg")
@@ -293,7 +316,7 @@ def qr(m):
         text = m.text.replace('/qr', '')
         urllib.urlretrieve("https://api.qrserver.com/v1/create-qr-code/?size=1200x800&data={}&bgcolor=ffff00&".format(text), "qr.png")
         bot.send_photo(m.chat.id, open('qr.png'))
-
+   
 @bot.message_handler(regexp='^(/kick) (.*)')
 def cap(m):
     if str(m.from_user.id) == owner:
