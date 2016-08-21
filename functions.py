@@ -161,6 +161,23 @@ def command_creator(m):
     cid = m.chat.id 
     bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
 
+@bot.message_handler(commands=['id', 'ids', 'info', 'me'])
+def id(m):      # info menu
+    cid = m.chat.id
+    title = m.chat.title
+    usr = m.chat.username
+    f = m.chat.first_name
+    l = m.chat.last_name
+    t = m.chat.type
+    d = m.date
+    text = m.text
+    p = m.pinned_message
+    fromm = m.forward_from
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("\xF0\x9F\x98\x8A Squidward bot \xF0\x9F\x98\x8A", url="https://telegram.me/squidward_bot"))
+#info text
+    bot.send_chat_action(cid, "typing")
+    bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
 
 @bot.message_handler(commands=['sticker'])
 def sticker(m):
@@ -188,24 +205,6 @@ def m(m):
                 with open('sticker.png','wb') as f:
                     f.write(dw)
                 bot.send_sticker(m.chat.id, open('sticker.png'))
-      
-@bot.message_handler(commands=['id', 'ids', 'info', 'me'])
-def id(m):      # info menu
-    cid = m.chat.id
-    title = m.chat.title
-    usr = m.chat.username
-    f = m.chat.first_name
-    l = m.chat.last_name
-    t = m.chat.type
-    d = m.date
-    text = m.text
-    p = m.pinned_message
-    fromm = m.forward_from
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("\xF0\x9F\x98\x8A Squidward bot \xF0\x9F\x98\x8A", url="https://telegram.me/squidward_bot"))
-#info text
-    bot.send_chat_action(cid, "typing")
-    bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
 
 @bot.message_handler(commands=['weather'])
 def wt(m):
