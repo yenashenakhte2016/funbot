@@ -182,6 +182,7 @@ These are what i can do</b>
 /map [City] 《Map screen》
 /spotify [Name Track] 《track info》
 /weather [City] 《shows city weather》
+/webshot [URL] 《Take a photo of url》
 /arz 《Arz And Gold price》
 /roll 《roll a dice》
 /hello 《say hello》
@@ -281,6 +282,11 @@ def wt(m):
             bot.send_message(m.chat.id, 'Error\n/weather tehran')
         except IOError:
             print 'not send sticker weather'
+
+@bot.message_handler(regexp='^(/webshot) (.*)')
+def web(m):
+        urllib.urlretrieve("http://api.screenshotmachine.com/?key=b645b8&size=X&url={}".format(m.text.replace('/webshot', '')), "web.jpg")
+        bot.send_photo(m.chat.id, open('web.jpg'))
 
 @bot.message_handler(commands=['qr'])
 def qr(m):
