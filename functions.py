@@ -87,8 +87,8 @@ def add(m):
         trigger_word = rest_text.split(separator)[0].strip()
         trigger_response = rest_text.split(separator, 1)[1].strip()
 
-    if(len(trigger_word) < 4):
-        bot.reply_to(m, 'Trigger too short. [chars < 4]')
+    if(len(trigger_word) < 2):
+        bot.reply_to(m, 'Trigger too short. [chars < 2]')
         return
     if(len(trigger_response) < 1):
         bot.reply_to(m, 'Invalid Response.')
