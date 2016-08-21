@@ -200,7 +200,7 @@ These are what i can do</b>
 /coding
 /attack</i>
 
-\xD8\xAE\xD9\x88\xD8\xB4\x20\xD8\xA7\xD9\x85\xD8\xAF\xDB\x8C\xD8\xAF
+
         """, parse_mode='HTML', reply_markup=markup)
 
 @bot.message_handler(commands=['id', 'ids', 'info', 'me'])
