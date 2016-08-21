@@ -73,7 +73,7 @@ def handle(msg):
             bot.sendMessage(chat_id,str(e))
 
 ##############     ENTER YOUR TOKEN BELOW
-bot = telepot.Bot('Token')
+bot = telepot.Bot('TOKEN')
 bot
 bot.message_loop(handle)
 print ('\nDesigned by @Electrovirus \n\nI am listening ...')
