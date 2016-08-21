@@ -78,5 +78,3 @@ bot
 bot.message_loop(handle)
 print ('\nDesigned by @Electrovirus \n\nI am listening ...')
 
-while 1:
-    time.sleep(10)
