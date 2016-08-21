@@ -165,8 +165,8 @@ def command_creator(m):
 def welcome(m):
         bot.send_chat_action(m.chat.id, 'typing')
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton('Next \xE2\x96\xB6\xEF\xB8\x8F', callback_data='next'))
-        markup.add(types.InlineKeyboardButton('Inline \xF0\x9F\x93\x9D', switch_inline_query=''))
+        markup.add(types.InlineKeyboardButton('Squidward Bot ', callback_data='next'))
+        markup.add(types.InlineKeyboardButton('Version 1 ', switch_inline_query=''))
         bot.send_message(m.chat.id,
         """
 <b>Wellcome 
