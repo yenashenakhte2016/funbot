@@ -11,6 +11,8 @@ from os.path import exists
 import os
 import re
 import logging
+import urllib
+import urllib2
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -152,7 +154,7 @@ def all(m):
 @bot.message_handler(commands=['help']) 
 def command_ayuda(m): 
     cid = m.chat.id 
-    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/short url \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
 
 @bot.message_handler(commands=['creator']) 
 def command_creator(m): 
@@ -176,6 +178,100 @@ def id(m):      # info menu
 #info text
     bot.send_chat_action(cid, "typing")
     bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
+
+@bot.message_handler(commands=['weather'])
+def wt(m):
+        try:
+            icons = {'01d': '🌞',
+             '01n': '🌚',
+             '02d': '⛅️',
+             '02n': '⛅️',
+             '03d': '☁️',
+             '03n': '☁️',
+             '04d': '☁️',
+             '04n': '☁️',
+             '09d': '🌧',
+             '09n': '🌧',
+             '10d': '🌦',
+             '10n': '🌦',
+             '11d': '🌩',
+             '11n': '🌩',
+             '13d': '🌨',
+             '13n': '🌨',
+             '50d': '🌫',
+             '50n': '🌫',
+             }
+            icons_file = {
+            '01d': '01d',
+            '01n': '01n',
+            '02d': '02d',
+            '02n': '02n',
+            '03d': '03d',
+            '03n': '03n',
+            '04d': '04d',
+            '04n': '04n',
+            '09d': '09d',
+            '09n': '09n',
+            '10d': '10d',
+            '10n': '10n',
+            '11d': '11d',
+            '11n': '11n',
+            '13d': '13d',
+            '13n': '13n',
+            '50d': '50d',
+            '50n': '50n',
+            }
+            text = m.text.split(' ',1)[1]
+            url = urllib.urlopen('http://api.openweathermap.org/data/2.5/weather?q={}&appid=269ed82391822cc692c9afd59f4aabba'.format(text))
+            d = url.read()
+            data = json.loads(d)
+            wt = data['main']['temp']
+            feshar = data['main']['pressure']
+            wind = data['wind']['speed']
+            icon = data['weather'][0]['icon']
+            texttt = icons[icon]
+            wt_data = int(wt)-273.15
+            bot.send_message(m.chat.id, '\xD8\xAF\xD9\x85\xD8\xA7 : {}\n\n\xD8\xB3\xD8\xB1\xD8\xB9\xD8\xAA\x20\xD8\xA8\xD8\xA7\xD8\xAF : {}/s\n\n\xD9\x81\xD8\xB4\xD8\xA7\xD8\xB1\x20\xD9\x87\xD9\x88\xD8\xA7 : {}\n\n {}'.format(wt_data,wind,feshar,texttt))
+            texty = icons_file[icon]
+            files = open('./weather/'+texty+'.png')
+            bot.send_sticker(m.chat.id, files)
+        except (IndexError):
+            bot.send_message(m.chat.id, 'Error\n/weather tehran')
+        except IOError:
+            print 'not send sticker weather'
+
+@bot.message_handler(commands=['short'])
+def short(m):
+        try:
+            text = m.text.split(' ',1)[1]
+            url = urllib.urlopen('http://gs2.ir/api.php?url='+text)
+            bot.send_message(m.chat.id, url.read())
+        except IndexError:
+            bot.send_message(m.chat.id, 'Error \n فرمت : \n /short [ادرس سایت]')
+
+@bot.message_handler(regexp='^(/setlink) (.*)')
+def link(m):
+        if m.text.split()[1]:
+            if m.chat.type == "group" or m.chat.type == "supergroup":
+                text = m.text.split()[1]
+                rediss.set('{}'.format(m.chat.id), '{}'.format(text))
+                get = rediss.get('{}'.format(m.chat.id))
+                markup = types.InlineKeyboardMarkup()
+                markup.add(types.InlineKeyboardButton('Group link',url= '{}'.format(get)))
+                bot.send_message(m.chat.id, '<b>Link :</b> {}'.format(get), parse_mode='HTML', reply_markup=markup)
+            if m.chat.type == "private":
+                bot.send_message(m.chat.id, 'Just group')
+                return
+
+@bot.message_handler(commands=['link'])
+def linkget(m):
+        if m.chat.type == "group" or m.chat.type == "supergroup":
+            get = rediss.get('{}'.format(m.chat.id))
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton('Group link',url= '{}'.format(get)))
+            bot.send_message(m.chat.id, '<b>Link :</b> {}'.format(get), parse_mode='HTML', reply_markup=markup)
+        if m.chat.type == "private":
+            bot.send_message(m.chat.id, 'Just group')
 
 @bot.message_handler(commands=['hola']) 
 def command_hola(m): 
