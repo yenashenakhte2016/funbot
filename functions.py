@@ -182,7 +182,6 @@ These are what i can do</b>
 /whois [domain name] 《domain informations》
 /map [City] 《Map screen》
 /spotify [Name Track] 《track info》
-/soundcloud [sound cloud url] 《Download mp3》
 /weather [City] 《shows city weather》
 /webshot [URL] 《Take a photo of url》
 /arz 《Arz And Gold price》
@@ -284,21 +283,6 @@ def wt(m):
             bot.send_message(m.chat.id, 'Error\n/weather tehran')
         except IOError:
             print 'not send sticker weather'
-
-@bot.message_handler(commands=['soundcloud'])
-def s(m):
-        try:
-            text = m.text.split(' ',1)[1]
-            url = urllib.urlopen('http://api.soundcloud.com/resolve?url={}&client_id=68e2dd5ffc581ee86f6e17f21637455a'.format(text))
-            d = url.read()
-            data = json.loads(d)
-            tag_list = data['tag_list']
-            title = data['title']
-            stream_url = data['stream_url']
-            urllib.urlretrieve('{}?client_id=68e2dd5ffc581ee86f6e17f21637455a'.format(stream_url),'soundcloud.mp3')
-            bot.send_chat_action(m.chat.id, 'record_audio')
-            bot.send_message(m.chat.id, 'Title : '+title+'\n\nTag list : '+tag_list)
-            bot.send_audio(m.chat.id, open('soundcloud.mp3'), title=title)
 
 @bot.message_handler(commands=['dog'])
 def d(m):
