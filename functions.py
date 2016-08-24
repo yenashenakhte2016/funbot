@@ -16,8 +16,8 @@ import urllib2
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-owner = 184018132
-TOKEN = '228878990:AAGVPi5yQxEXBAsj5_OA47zqA54UXocHv_Y'
+owner = 240616380
+TOKEN = '265558821:AAEUglXJyZSU2FOlPHo9XHIr8DlXMJZQB6Y'
 bot = telebot.TeleBot(TOKEN) # Creating our bot object.
 bot.skip_pending=True
 #######################################
@@ -154,28 +154,28 @@ def all(m):
 @bot.message_handler(commands=['hhelp']) 
 def command_ayuda(m): 
     cid = m.chat.id
-    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n🐙Squidward v1") #
+    bot.send_message( cid, "*Triggers settings(Groups only!)*\n/add trigger/answer \n/del trigger \n/size \n/all \n*Markdown settings* \n/format *hi* _hi_ `hi`\n*Others* \n/weather city \n/map city \n/arz \n/spotify artist|song \n/whois url \n/qr text  \n/time \n/hola \n/hello \n/roll \n/id \n*Extras* \n/fuckyou \n/coding \n/attack \n😛Fun Bot v1") #
 
 @bot.message_handler(commands=['creator', 'ping']) 
 def command_creator(m): 
     cid = m.chat.id 
-    bot.send_message( cid, '🔵Squidward V.1 by @Electrovirus')
+    bot.send_message( cid, '😓Fun Bit V.1 by @MuteTeam')
 
 @bot.message_handler(commands=['start']) 
 def command_start(m): 
     cid = m.chat.id 
-    bot.send_message( cid, '🐙Hello \n🐙Wellcome to squidwardBot V.1 \n🐙A fun bot based on python \n🐙Developed by @Electrovirus \n\n🐙Use /help to see bot commands')
+    bot.send_message( cid, '😍Hello \n💪Wellcome to Fun Bot V.1 \nA fun bot \n💡Developed by Team @MuteTeam \n\n🔍Use /help to see bot commands')
 
 @bot.message_handler(commands=['help'])
 def welcome(m):
         bot.send_chat_action(m.chat.id, 'typing')
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton('Squidward Bot ', callback_data='next'))
+        markup.add(types.InlineKeyboardButton('Fun Bot ', callback_data='next'))
         markup.add(types.InlineKeyboardButton('Version 1 ', switch_inline_query=''))
         bot.send_message(m.chat.id,
         """
 <b>Wellcome 
-I am squidward the tentacle
+I am Fun Bot the tentacle
 These are what i can do</b>
 
 <i>/help 《show this text》
@@ -223,7 +223,7 @@ def id(m):      # info menu
     p = m.pinned_message
     fromm = m.forward_from
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("\xF0\x9F\x98\x8A Squidward bot \xF0\x9F\x98\x8A", url="https://telegram.me/squidward_bot"))
+    markup.add(types.InlineKeyboardButton("\xF0\x9F\x98\x8A Fun bot \xF0\x9F\x98\x8A", url="https://telegram.me/TeleFunRbot"))
 #info text
     bot.send_chat_action(cid, "typing")
     bot.reply_to(m, "*ID from* : ```{}``` \n\n *Chat name* : ```{}``` \n\n\n *Your Username* : ```{}``` \n\n *Your First Name* : ```{}```\n\n *Your Last Name* : ```{}```\n\n *Type From* : ```{}``` \n\n *Msg data* : ```{}```\n\n *Your Msg* : ```{}```\n\n* pind msg * : ```{}```\n\n *from* : ```{}```".format(cid,title,usr,f,l,t,d,text,p,fromm), parse_mode="Markdown", reply_markup=markup)
